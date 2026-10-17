@@ -1,0 +1,62 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+<BaseLayout title="Objetivo" active="/objetivo">
+  <section class="hero">
+    <div class="container">
+      <span class="tag">Página de Objetivo</span>
+      <h1>Propósito del trabajo</h1>
+      <p>Especificar el propósito del análisis y destacar la conexión entre el hardware y el software en el entorno de desarrollo.</p>
+    </div>
+  </section>
+
+  <div class="container">
+    <section>
+      <h2>Objetivo general</h2>
+      <div class="card">
+        <p>
+          Analizar el funcionamiento y la importancia de los buses del sistema y las tarjetas de expansión en la
+          arquitectura de un computador, comprendiendo su papel fundamental en la interacción entre el hardware y
+          el software aplicativo, mediante la elaboración de un sitio web educativo.
+        </p>
+      </div>
+    </section>
+
+    <section>
+      <h2>Objetivos específicos</h2>
+      <ol class="brutal">
+        <li>Describir los tipos, funciones y características de los buses del sistema (datos, direcciones y control).</li>
+        <li>Analizar los diferentes tipos de tarjetas de expansión y su relación con los sistemas de memoria y dispositivos periféricos.</li>
+        <li>Explicar cómo el conocimiento de estos componentes impacta el rendimiento y la compatibilidad del software aplicativo.</li>
+        <li>Aplicar lo aprendido al Caso 3: integración de una tarjeta de expansión de captura de datos en un software nuevo.</li>
+        <li>Reflexionar sobre cómo la arquitectura de hardware influye en la calidad y eficiencia del software desarrollado.</li>
+      </ol>
+    </section>
+
+    <section>
+      <h2>Conexión hardware–software en el entorno de desarrollo</h2>
+      <p>
+        En el desarrollo de software aplicativo, el hardware no es un detalle secundario: es el entorno físico donde
+        el programa se ejecuta. La conexión se manifiesta en varios niveles:
+      </p>
+      <div class="grid grid-2">
+        <div class="card purple">
+          <h3>Drivers y SDK</h3>
+          <p>El software se comunica con la tarjeta de expansión a través de controladores y kits de desarrollo proporcionados por el fabricante.</p>
+        </div>
+        <div class="card green">
+          <h3>APIs del sistema operativo</h3>
+          <p>El SO expone abstracciones (memoria mapeada, DMA, interrupciones) que el desarrollador aprovecha para transferir datos de forma eficiente.</p>
+        </div>
+        <div class="card gold">
+          <h3>Arquitectura de buses</h3>
+          <p>El ancho de banda, la latencia y la topología del bus determinan el rendimiento máximo alcanzable por la aplicación.</p>
+        </div>
+        <div class="card red">
+          <h3>Compatibilidad</h3>
+          <p>Versiones de drivers, slots disponibles, lanes PCIe y sistemas operativos condicionan si el software funcionará correctamente.</p>
+        </div>
+      </div>
+    </section>
+  </div>
+</BaseLayout>

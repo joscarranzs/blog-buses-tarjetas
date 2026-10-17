@@ -1,0 +1,43 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+<BaseLayout title="Reflexiones y conclusiones" active="/reflexiones">
+  <section class="hero">
+    <div class="container">
+      <span class="tag">Página de Reflexiones y Conclusiones</span>
+      <h1>Hardware y software: dos mundos que se necesitan</h1>
+      <p>Reflexión sobre cómo la arquitectura de hardware influye en la calidad y eficiencia del software desarrollado.</p>
+    </div>
+  </section>
+
+  <div class="container">
+    <section>
+      <h2>Reflexión</h2>
+      <div class="card">
+        <p>
+          Entender la arquitectura de hardware deja de ser un tema "de ingenieros de hardware" y se convierte en una
+          competencia esencial del desarrollador de software. Los buses determinan cuánto y qué tan rápido se puede
+          mover información; las tarjetas de expansión definen qué capacidades físicas están disponibles. Ignorar estos
+          aspectos lleva a software ineficiente, incompatible o frágil.
+        </p>
+        <p>
+          En el Caso 3, una aplicación de monitoreo industrial solo será confiable si el desarrollador comprende el
+          bus PCIe, el DMA y los drivers. La calidad del software (tiempo real, ausencia de pérdida de datos) depende
+          directamente de decisiones de diseño informadas por el hardware.
+        </p>
+      </div>
+    </section>
+
+
+    <section>
+      <h2>Conclusiones personales</h2>
+      <ol class="brutal">
+        <li>Los buses del sistema son el "sistema circulatorio" del computador: sin ellos no hay comunicación.</li>
+        <li>Las tarjetas de expansión extienden capacidades, pero su aprovechamiento depende del software (drivers, SDK, diseño).</li>
+        <li>El rendimiento del software está limitado por el hardware; conocerlo permite optimizar y evitar cuellos de botella.</li>
+        <li>La compatibilidad hardware-software es un requisito de calidad, no un detalle.</li>
+        <li>Un desarrollador que domina estos conceptos toma decisiones más efectivas y anticipa problemas.</li>
+      </ol>
+    </section>
+  </div>
+</BaseLayout>

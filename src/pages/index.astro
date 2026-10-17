@@ -1,0 +1,78 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+<BaseLayout title="Introducción" active="/">
+  <section class="hero">
+    <div class="container">
+      <span class="tag">Página de Introducción</span>
+      <h1>Buses del sistema y tarjetas de expansión</h1>
+      <p>Visión general del tema, su importancia en la arquitectura computacional y su relevancia para quienes desarrollan software aplicativo.</p>
+    </div>
+  </section>
+
+  <div class="container">
+    <section>
+      <h2>¿De qué trata este sitio?</h2>
+      <p>
+        Este blog educativo analiza el funcionamiento y la importancia de los <strong>buses del sistema</strong>
+        y las <strong>tarjetas de expansión</strong> dentro de la arquitectura de un computador. Su propósito es
+        comprender el papel que cumplen en la interacción entre el hardware y el software aplicativo, y cómo ese
+        conocimiento permite a un desarrollador tomar decisiones más efectivas.
+      </p>
+      <p>
+        Se organiza en seis páginas temáticas: Introducción, Objetivo, Desarrollo de contenidos, Estudio de caso,
+        Reflexiones y conclusiones, y Referencias bibliográficas.
+      </p>
+    </section>
+
+    <section>
+      <h2>Importancia de los buses y las tarjetas de expansión</h2>
+      <div class="grid grid-2">
+        <div class="card purple">
+          <h3>Buses del sistema</h3>
+          <p>
+            Son el medio de comunicación que conecta la CPU, la memoria y los dispositivos de entrada/salida.
+            Definen cuántos datos se mueven, a qué velocidad y con qué latencia. Sin ellos no existe intercambio
+            de información dentro del equipo.
+          </p>
+        </div>
+        <div class="card green">
+          <h3>Tarjetas de expansión</h3>
+          <p>
+            Extienden las capacidades del computador (captura de datos, gráficos, red, almacenamiento). Se
+            conectan a través de buses (PCI/PCIe) e interactúan con el software mediante controladores (drivers)
+            y kits de desarrollo (SDK).
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Relevancia para quienes desarrollan software</h2>
+      <p>
+        El software no se ejecuta en el vacío: depende de la arquitectura de hardware para mover datos. Conocer
+        los buses y las tarjetas de expansión permite al desarrollador:
+      </p>
+      <ul class="brutal">
+        <li>Elegir las APIs y SDK correctos para comunicarse con el hardware.</li>
+        <li>Optimizar la transferencia de datos (DMA, buffers, interrupciones).</li>
+        <li>Evitar cuellos de botella y saturación del bus.</li>
+        <li>Garantizar compatibilidad entre hardware y software.</li>
+        <li>Diagnosticar fallos de rendimiento o comunicación.</li>
+      </ul>
+      <div class="callout">
+        Ejemplo: una aplicación de captura de datos que ignora el ancho de banda del bus PCIe puede perder muestras
+        o saturar la CPU; conocer el hardware permite diseñar buffers circulares y usar DMA.
+      </div>
+    </section>
+
+    <section>
+      <h2>Navegación</h2>
+      <div class="grid grid-3">
+        <a class="btn" href={`${import.meta.env.BASE_URL}/objetivo`}>Ver objetivo →</a>
+        <a class="btn green" href={`${import.meta.env.BASE_URL}/desarrollo`}>Desarrollo de contenidos →</a>
+        <a class="btn gold" href={`${import.meta.env.BASE_URL}/caso`}>Estudio de caso →</a>
+      </div>
+    </section>
+  </div>
+</BaseLayout>

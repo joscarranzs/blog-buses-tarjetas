@@ -1,0 +1,297 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+<BaseLayout title="Estudio de caso" active="/caso">
+  <section class="hero">
+    <div class="container">
+      <span class="tag">Página de estudio de caso</span>
+      <h1>Integración de hardware especializado en un software nuevo</h1>
+      <p>Aplicación de monitoreo industrial que adquiere señales analógicas mediante una tarjeta DAQ PCIe (NI PCIe-6321) y el driver NI-DAQmx.</p>
+    </div>
+  </section>
+
+  <div class="container">
+    <section>
+      <h2>Escenario</h2>
+      <div class="card">
+        <p>
+          Un desarrollador debe programar una <strong>aplicación de monitoreo industrial</strong> que adquiere señales
+          analógicas (temperatura, presión, voltaje) de sensores en planta y las registra en tiempo real. Para ello
+          utiliza una <strong>tarjeta de expansión de captura de datos</strong> (DAQ) conectada por PCIe. El reto es
+          integrar correctamente el hardware con el software nuevo, garantizando rendimiento, compatibilidad y
+          ausencia de pérdida de datos.
+        </p>
+      </div>
+    </section>
+
+    <section>
+      <h2>1. Hardware involucrado</h2>
+      <table>
+        <thead>
+          <tr><th>Componente</th><th>Selección específica y justificación</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Tarjeta DAQ</td><td><strong>NI PCIe-6321 (X Series)</strong>: 16 AI (16 bits, 250 kS/s agregados), 2 AO (900 kS/s), 24 DIO, 4 contadores 32 bits. Bus PCIe x1 v1.1. Ideal para monitoreo industrial de baja/media velocidad.</td></tr>
+          <tr><td>Placa base (ejemplo)</td><td><strong>ASUS PRIME B760M-A D4</strong> (micro-ATX, chipset Intel B760): expone un slot PCIe 4.0 x16 y un slot PCIe 3.0 x1 libre, por lo que el PCIe-6321 (x1) se instala sin sacrificar la GPU. Soporta CPUs Intel de 12.ª/13.ª/14.ª gen y memoria DDR4. Verificar que el slot x1 no esté compartido con M.2 y que no esté reservado para la GPU.</td></tr>
+          <tr><td>CPU (ejemplo)</td><td><strong>Intel Core i5-13400</strong> (6 núcleos de rendimiento + 4 de eficiencia): suficiente para procesar y registrar datos de adquisición en tiempo real sin saturar la CPU, dejando margen para la aplicación y el driver NI-DAQmx.</td></tr>
+          <tr><td>RAM (ejemplo)</td><td><strong>Kingston Fury Beast 16 GB (2×8 GB) DDR4-3200</strong>: capacidad para buffers de adquisición y almacenamiento temporal de muestras; 16 GB evita paginación a disco durante capturas prolongadas.</td></tr>
+          <tr><td>Almacenamiento (ejemplo)</td><td><strong>WD Blue SN580 1 TB (NVMe PCIe 4.0)</strong>: escritura sostenida alta para registro continuo de datos; evita cuellos de botella de discos mecánicos.</td></tr>
+          <tr><td>Fuente (ejemplo)</td><td><strong>Corsair CX550 (550 W, 80+ Bronze)</strong>: el PCIe-6321 consume 1.4 W en +3.3 V y 8.6 W en +12 V (sin conector de disco) o 3 W en +12 V y 15 W en +5 V (con conector de disco); 550 W da margen amplio para el resto del sistema.</td></tr>
+          <tr><td>Gabinete (ejemplo)</td><td><strong>Fractal Design Pop Air (ATX)</strong> o similar con ventilación frontal: mantiene la temperatura dentro del rango de operación de la tarjeta (0 °C a 50 °C).</td></tr>
+          <tr><td>Acondicionamiento de señal</td><td><strong>NI SCB-68A</strong> (bloque de conexión de 68 pines) para cablear sensores al conector VHDCI de la tarjeta; para termopares usar módulos SCC o acondicionamiento externo con amplificación/aislamiento.</td></tr>
+          <tr><td>Temperatura / entorno</td><td>Operación de 0 °C a 50 °C, almacenamiento de -40 °C a 70 °C, humedad 10-90 % RH sin condensación, uso en interiores. Garantizar ventilación del gabinete.</td></tr>
+          <tr><td>Calibración</td><td>Tiempo de calentamiento recomendado de 15 minutos; intervalo de calibración de 2 años.</td></tr>
+          <tr><td>Sensores (ejemplo)</td><td>Termopar tipo K: <strong>Omega TJ36-CAXL-116U-6</strong> (probe, rango -40 a 260 °C) con acondicionamiento (NI SCB-68A con compensación de unión fría) o amplificador AD595. Transductor de presión 4-20 mA: <strong>Omega PX309-030G5V</strong> (0-30 psi). RTD PT100: <strong>Omega PR-13-2-100-1/8-6</strong>. Todos con rangos compatibles con las entradas analógicas del PCIe-6321 (±10 V, ±5 V, ±1 V, ±0.2 V).</td></tr>
+        </tbody>
+      </table>
+      <div class="callout">
+        Compatibilidad verificada: el PCIe-6321 es PCIe x1 v1.1 y encaja físicamente en slots x1/x4/x8/x16 (algunas placas
+        reservan el x16 para la GPU, por eso se eligió una placa con slot x1 dedicado). NI-DAQmx soporta Windows 10/11
+        (según versión del driver), el i5-13400 soporta Windows 11 y DDR4-3200 (la Kingston Fury Beast DDR4-3200 es compatible),
+        el WD SN580 NVMe PCIe 4.0 encaja en los slots M.2 de la B760M-A D4, y la CX550 (ATX) alimenta el sistema con margen
+        (el DAQ consume 8.6 W en +12 V). Verificar la versión de NI-DAQmx contra la matriz oficial de NI antes de instalar.
+      </div>
+    </section>
+
+    <section>
+      <h2>Galería de componentes</h2>
+      <div class="grid grid-3">
+        <div class="card">
+          <img src={`${import.meta.env.BASE_URL}/ni-pcie-6321.jpg`} alt="NI PCIe-6321" style="width:100%; height:180px; object-fit:contain; display:block;" />
+          <p style="font-size:0.85rem; margin:0.5rem 0 0;"><strong>NI PCIe-6321</strong> (DAQ)</p>
+        </div>
+        <div class="card">
+          <img src={`${import.meta.env.BASE_URL}/asus-b760m.jpg`} alt="ASUS PRIME B760M-A D4" style="width:100%; height:180px; object-fit:contain; display:block;" />
+          <p style="font-size:0.85rem; margin:0.5rem 0 0;"><strong>ASUS PRIME B760M-A D4</strong></p>
+        </div>
+        <div class="card">
+          <img src={`${import.meta.env.BASE_URL}/cpu-i5-13400-front.jpg`} alt="Intel Core i5-13400" style="width:100%; height:180px; object-fit:contain; display:block;" />
+          <p style="font-size:0.85rem; margin:0.5rem 0 0;"><strong>Intel Core i5-13400</strong></p>
+        </div>
+        <div class="card">
+          <img src={`${import.meta.env.BASE_URL}/kingston-ram.jpg`} alt="Kingston Fury Beast 16GB" style="width:100%; height:180px; object-fit:contain; display:block;" />
+          <p style="font-size:0.85rem; margin:0.5rem 0 0;"><strong>Kingston Fury Beast 16GB DDR4</strong></p>
+        </div>
+        <div class="card">
+          <img src={`${import.meta.env.BASE_URL}/wd-sn580.jpg`} alt="WD Blue SN580 1TB" style="width:100%; height:180px; object-fit:contain; display:block;" />
+          <p style="font-size:0.85rem; margin:0.5rem 0 0;"><strong>WD Blue SN580 1TB NVMe</strong></p>
+        </div>
+        <div class="card">
+          <img src={`${import.meta.env.BASE_URL}/corsair-cx550.jpg`} alt="Corsair CX550" style="width:100%; height:180px; object-fit:contain; display:block;" />
+          <p style="font-size:0.85rem; margin:0.5rem 0 0;"><strong>Corsair CX550 550W</strong></p>
+        </div>
+        <div class="card">
+          <img src={`${import.meta.env.BASE_URL}/fractal-pop-air.jpg`} alt="Fractal Design Pop Air" style="width:100%; height:180px; object-fit:contain; display:block;" />
+          <p style="font-size:0.85rem; margin:0.5rem 0 0;"><strong>Fractal Design Pop Air</strong></p>
+        </div>
+        <div class="card">
+          <img src={`${import.meta.env.BASE_URL}/scb-68a.jpg`} alt="NI SCB-68A" style="width:100%; height:180px; object-fit:contain; display:block;" />
+          <p style="font-size:0.85rem; margin:0.5rem 0 0;"><strong>NI SCB-68A</strong></p>
+        </div>
+        <div class="card">
+          <img src={`${import.meta.env.BASE_URL}/omega-tj36.jpg`} alt="Termopar tipo K Omega TJ36" style="width:100%; height:180px; object-fit:contain; display:block;" />
+          <p style="font-size:0.85rem; margin:0.5rem 0 0;"><strong>Termopar tipo K (Omega TJ36)</strong></p>
+        </div>
+        <div class="card">
+          <img src={`${import.meta.env.BASE_URL}/omega-pr13.jpg`} alt="RTD PT100 Omega PR-13" style="width:100%; height:180px; object-fit:contain; display:block;" />
+          <p style="font-size:0.85rem; margin:0.5rem 0 0;"><strong>RTD PT100 (Omega PR-13)</strong></p>
+        </div>
+        <div class="card">
+          <img src={`${import.meta.env.BASE_URL}/omega-px309.jpg`} alt="Transductor de presión Omega PX309" style="width:100%; height:180px; object-fit:contain; display:block;" />
+          <p style="font-size:0.85rem; margin:0.5rem 0 0;"><strong>Transductor de presión (Omega PX309)</strong></p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>2. Software involucrado</h2>
+      <table>
+        <thead>
+          <tr><th>Componente</th><th>Selección específica y justificación</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Sistema operativo</td><td>Windows (7/8/10/11) o PharLap Real-Time según la versión de NI-DAQmx; verificar la matriz de compatibilidad oficial de NI para la versión del driver elegida.</td></tr>
+          <tr><td>Driver</td><td><strong>NI-DAQmx 2024 Q1 (o superior)</strong>, instalado desde NI Package Manager; incluye el driver del kernel para el PCIe-6321.</td></tr>
+          <tr><td>Entorno de desarrollo</td><td>Visual Studio 2022 (C#/.NET 6+) o Python 3.11+ con la librería <code>nidaqmx</code> oficial de NI.</td></tr>
+          <tr><td>Bibliotecas</td><td><code>NationalInstruments.DAQmx</code> (.NET), <code>nidaqmx</code> (Python), o LabVIEW 2023+ para prototipado rápido.</td></tr>
+          <tr><td>Diagnóstico</td><td>NI MAX (Measurement &amp; Automation Explorer) para detectar la tarjeta, probar canales y verificar el driver.</td></tr>
+          <tr><td>Aplicación</td><td>
+            <strong>Tipo:</strong> aplicación de escritorio en C# (.NET 6+) o Python 3.11+ que monitorea variables industriales en tiempo real.<br/>
+            <strong>Cómo se implementa:</strong>
+            <ol style="margin:0.4rem 0 0 1.2rem; padding:0;">
+              <li><strong>Configuración:</strong> crear una tarea DAQmx, añadir canales analógicos (AI) con rango ±10 V, definir la tasa de muestreo (ej. 10 kS/s por canal) y el modo de adquisición (continuo).</li>
+              <li><strong>Lectura:</strong> usar lectura analógica en modo DMA (método <code>Read</code> con buffer preasignado) en lugar de polling; NI-DAQmx transfiere datos del dispositivo a la RAM por DMA.</li>
+              <li><strong>Buffer circular:</strong> mantener un buffer en memoria (ej. <code>ConcurrentQueue&lt;double[]&gt;</code> en C# o <code>collections.deque</code> en Python) donde un hilo productor (callback de DAQmx) encola muestras y un hilo consumidor las procesa/registra.</li>
+              <li><strong>Registro:</strong> escribir lotes de muestras a un archivo CSV o base de datos (SQLite) en el SSD (WD Blue SN580) en bloques, con flush periódico para no perder datos.</li>
+              <li><strong>Control:</strong> manejar eventos de error, timeout y parada ordenada (detener la tarea, liberar recursos).</li>
+            </ol>
+            <strong>Ejemplo (Python, nidaqmx):</strong>
+            <pre style="background:#F5F0E8; border:2px solid #000; padding:0.6rem; font-size:0.8rem; overflow-x:auto; margin:0.4rem 0 0;">import nidaqmx
+from nidaqmx.constants import AcquisitionType
+with nidaqmx.Task() as task:
+    task.ai_channels.add_ai_voltage_chan("Dev1/ai0:3", min_val=-10.0, max_val=10.0)
+    task.timing.cfg_samp_clk_timing(10000.0, sample_mode=AcquisitionType.CONTINUOUS)
+    data = task.read(number_of_samples_per_channel=1000)</pre>
+          </td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section>
+      <h2>3. Comunicación hardware–software</h2>
+      <div class="diagram">
+        <svg viewBox="0 0 880 150" xmlns="http://www.w3.org/2000/svg">
+          <rect x="10" y="45" width="110" height="55" fill="#EFD9EC" stroke="#000" stroke-width="3"/>
+          <text x="65" y="78" text-anchor="middle" font-weight="800" font-size="11">Aplicación</text>
+          <rect x="150" y="45" width="110" height="55" fill="#DCEFD9" stroke="#000" stroke-width="3"/>
+          <text x="205" y="78" text-anchor="middle" font-weight="800" font-size="11">NI-DAQmx API</text>
+          <rect x="290" y="45" width="110" height="55" fill="#FBF1D4" stroke="#000" stroke-width="3"/>
+          <text x="345" y="78" text-anchor="middle" font-weight="800" font-size="11">Driver kernel</text>
+          <rect x="430" y="45" width="110" height="55" fill="#ADD8E6" stroke="#000" stroke-width="3"/>
+          <text x="485" y="78" text-anchor="middle" font-weight="800" font-size="11">Bus PCIe x1</text>
+          <rect x="570" y="45" width="130" height="55" fill="#FBE0DD" stroke="#000" stroke-width="3"/>
+          <text x="635" y="78" text-anchor="middle" font-weight="800" font-size="11">Tarjeta DAQ</text>
+          <rect x="730" y="45" width="140" height="55" fill="#EFD9EC" stroke="#000" stroke-width="3"/>
+          <text x="800" y="78" text-anchor="middle" font-weight="800" font-size="11">Sensores / ADC</text>
+          <line x1="120" y1="72" x2="150" y2="72" stroke="#000" stroke-width="3" marker-end="url(#b)"/>
+          <line x1="260" y1="72" x2="290" y2="72" stroke="#000" stroke-width="3" marker-end="url(#b)"/>
+          <line x1="400" y1="72" x2="430" y2="72" stroke="#000" stroke-width="3" marker-end="url(#b)"/>
+          <line x1="540" y1="72" x2="570" y2="72" stroke="#000" stroke-width="3" marker-end="url(#b)"/>
+          <line x1="700" y1="72" x2="730" y2="72" stroke="#000" stroke-width="3" marker-end="url(#b)"/>
+          <defs><marker id="b" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#000"/></marker></defs>
+        </svg>
+        <p style="text-align:center; font-size:0.85rem; margin:0.5rem 0 0;">Figura 3. Flujo de comunicación en el Caso 3.</p>
+      </div>
+      <p>
+        El flujo es: la aplicación configura la adquisición mediante la API NI-DAQmx; el driver del kernel traduce las
+        llamadas y envía comandos a la tarjeta por el bus PCIe; la tarjeta muestrea la señal analógica (ADC) y transfiere
+        los datos a la RAM del host mediante <strong>DMA</strong>; la aplicación lee los buffers y procesa/registra los datos.
+      </p>
+    </section>
+
+    <section>
+      <h2>4. Influencia de los buses en la eficiencia de la transferencia</h2>
+      <table>
+        <thead>
+          <tr><th>Factor</th><th>Impacto</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Ancho de banda PCIe x1</td><td>~250 MB/s (Gen1) a ~985 MB/s (Gen3). La adquisición a 250 kS/s × 16 bits ≈ 0,5 MB/s, muy por debajo del límite.</td></tr>
+          <tr><td>DMA</td><td>Evita que la CPU copie datos; reduce carga y latencia.</td></tr>
+          <tr><td>Buffers circulares</td><td>Evitan pérdida de muestras cuando la aplicación no lee a tiempo.</td></tr>
+          <tr><td>Interrupciones</td><td>Notifican al SO cuando hay datos listos, evitando polling continuo.</td></tr>
+          <tr><td>Contención</td><td>Compartir el bus con GPU/NVMe pesados puede generar latencia; elegir slot adecuado.</td></tr>
+        </tbody>
+      </table>
+      <div class="callout">
+        Conclusión técnica: para este caso el bus PCIe x1 es suficiente, pero el diseño del software (DMA + buffers +
+        interrupciones) es lo que garantiza tiempo real y ausencia de pérdida de datos.
+      </div>
+    </section>
+
+    <section>
+      <h2>5. Requerimientos de hardware y software</h2>
+      <div class="grid grid-2">
+        <div class="card purple">
+          <h3>Hardware</h3>
+          <ul class="brutal">
+            <li>Slot PCIe disponible (x1 o superior).</li>
+            <li>Alimentación adecuada de la placa base.</li>
+            <li>Acondicionamiento de señal para los sensores.</li>
+            <li>Verificar que no haya contención con otros dispositivos pesados.</li>
+          </ul>
+        </div>
+        <div class="card green">
+          <h3>Software</h3>
+          <ul class="brutal">
+            <li>Driver NI-DAQmx instalado y compatible con el SO.</li>
+            <li>SDK/API en el lenguaje elegido (C#, Python, LabVIEW).</li>
+            <li>NI MAX para verificación y diagnóstico.</li>
+            <li>Manejo de errores, timeouts y reconexión.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>6. Recomendaciones de diseño</h2>
+      <ol class="brutal">
+        <li>Usar DMA y buffers circulares para no perder muestras.</li>
+        <li>Configurar la tasa de muestreo según el ancho de banda disponible.</li>
+        <li>Evitar compartir el bus PCIe con dispositivos de alto consumo (GPU, NVMe) en el mismo root complex.</li>
+        <li>Usar interrupciones en lugar de polling para reducir carga de CPU.</li>
+        <li>Validar el sistema con NI MAX antes de integrar el software.</li>
+        <li>Documentar versiones de driver y SDK para garantizar compatibilidad futura.</li>
+      </ol>
+    </section>
+
+    <section>
+      <h2>7. Aprendizaje</h2>
+      <div class="card gold">
+        <p>
+          Integrar una tarjeta de captura de datos en un software nuevo exige comprender tanto el hardware (bus, slot,
+          DMA, ancho de banda) como el software (driver, SDK, API). El bus PCIe determina el techo de rendimiento,
+          pero son las decisiones de diseño del desarrollador (buffers, interrupciones, DMA) las que garantizan un
+          sistema estable y en tiempo real. Conocer estos componentes permite anticipar problemas de compatibilidad
+          y optimizar la transferencia de datos.
+        </p>
+      </div>
+    </section>
+
+    <section>
+      <h2>Entornos y herramientas que interactúan con hardware</h2>
+      <p>
+        La integración entre la aplicación y la tarjeta DAQ no ocurre de forma directa: se apoya en una cadena de
+        herramientas y entornos que traducen las llamadas del software en operaciones sobre el bus PCIe. Cada una cumple
+        un rol específico:
+      </p>
+      <table>
+        <thead>
+          <tr><th>Herramienta / Entorno</th><th>Rol en la comunicación</th><th>Ejemplo concreto</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Sistema operativo</strong></td>
+            <td>Gestiona el bus PCIe, asigna recursos (IRQ, memoria mapeada) y carga el driver del dispositivo.</td>
+            <td>Windows 10/11 (64 bits) o Linux compatible con NI-DAQmx.</td>
+          </tr>
+          <tr>
+            <td><strong>Driver (NI-DAQmx)</strong></td>
+            <td>Controlador de kernel que traduce las llamadas de alto nivel en comandos de hardware y gestiona DMA, interrupciones y buffers.</td>
+            <td>NI-DAQmx 2024 Q1 instalado desde NI Package Manager.</td>
+          </tr>
+          <tr>
+            <td><strong>SDK / API (NI-DAQmx)</strong></td>
+            <td>Expone funciones para configurar canales, tasa de muestreo, triggers y leer datos desde el lenguaje elegido.</td>
+            <td><code>NationalInstruments.DAQmx</code> (.NET), <code>nidaqmx</code> (Python), LabVIEW DAQmx VIs.</td>
+          </tr>
+          <tr>
+            <td><strong>Entorno de desarrollo</strong></td>
+            <td>Permite escribir, compilar y depurar la aplicación que consume la API.</td>
+            <td>Visual Studio 2022 (C#), VS Code + Python 3.11, LabVIEW 2023+.</td>
+          </tr>
+          <tr>
+            <td><strong>Herramienta de diagnóstico</strong></td>
+            <td>Detecta la tarjeta, prueba canales, verifica el driver y muestra el estado del dispositivo.</td>
+            <td>NI MAX (Measurement &amp; Automation Explorer).</td>
+          </tr>
+          <tr>
+            <td><strong>Acondicionamiento (SCB-68A / SCC)</strong></td>
+            <td>Conecta y acondiciona las señales de los sensores antes de entrar a la DAQ.</td>
+            <td>Bloque de terminales NI SCB-68A con compensación de unión fría para termopares.</td>
+          </tr>
+          <tr>
+            <td><strong>Librerías de terceros</strong></td>
+            <td>Facilitan el registro, visualización y análisis de los datos adquiridos.</td>
+            <td>SQLite/CSV para registro, Matplotlib/ScottPlot para gráficas, pandas para análisis.</td>
+          </tr>
+        </tbody>
+      </table>
+      <p>
+        En resumen: el <strong>Sistema Operativo</strong> y el <strong>Driver</strong> se encargan del hardware y el bus PCIe;
+        el <strong>SDK</strong> expone la funcionalidad a la <strong>Aplicación</strong>; y las <strong>Herramientas de diagnóstico</strong>
+        permiten verificar que todo el stack funciona antes de integrar el software.
+      </p>
+    </section>
+  </div>
+</BaseLayout>

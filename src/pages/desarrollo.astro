@@ -1,0 +1,182 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+<BaseLayout title="Desarrollo de contenidos" active="/desarrollo">
+  <section class="hero">
+    <div class="container">
+      <span class="tag">Página de Desarrollo de Contenidos</span>
+      <h1>Buses del sistema y tarjetas de expansión</h1>
+      <p>Tipos, funciones, características y su relación con la memoria, los periféricos y el software aplicativo.</p>
+    </div>
+  </section>
+
+  <div class="container">
+    <section>
+      <h2>1. ¿Qué es un bus del sistema?</h2>
+      <p>
+        Un <strong>bus</strong> es un conjunto de líneas de comunicación (eléctricas o lógicas) que interconectan los
+        componentes de un computador (CPU, memoria, dispositivos de E/S) permitiendo el intercambio de datos,
+        direcciones y señales de control. La arquitectura de buses determina el rendimiento, la escalabilidad y la
+        compatibilidad del sistema.
+      </p>
+      <div class="diagram">
+        <svg viewBox="0 0 760 260" xmlns="http://www.w3.org/2000/svg">
+          <rect x="10" y="20" width="160" height="60" fill="#EFD9EC" stroke="#000" stroke-width="3"/>
+          <text x="90" y="55" text-anchor="middle" font-weight="800" font-size="14">CPU</text>
+          <rect x="300" y="20" width="160" height="60" fill="#DCEFD9" stroke="#000" stroke-width="3"/>
+          <text x="380" y="55" text-anchor="middle" font-weight="800" font-size="14">Memoria RAM</text>
+          <rect x="590" y="20" width="160" height="60" fill="#FBF1D4" stroke="#000" stroke-width="3"/>
+          <text x="670" y="55" text-anchor="middle" font-weight="800" font-size="14">Tarjeta de expansión</text>
+
+          <rect x="10" y="180" width="740" height="50" fill="#ADD8E6" stroke="#000" stroke-width="3"/>
+          <text x="380" y="210" text-anchor="middle" font-weight="800" font-size="14">BUS DEL SISTEMA (datos · direcciones · control)</text>
+
+          <line x1="90" y1="80" x2="90" y2="180" stroke="#000" stroke-width="3"/>
+          <line x1="380" y1="80" x2="380" y2="180" stroke="#000" stroke-width="3"/>
+          <line x1="670" y1="80" x2="670" y2="180" stroke="#000" stroke-width="3"/>
+        </svg>
+        <p style="text-align:center; font-size:0.85rem; margin:0.5rem 0 0;">Figura 1. Esquema general de un bus del sistema interconectando CPU, memoria y tarjeta de expansión.</p>
+      </div>
+    </section>
+
+    <section>
+      <h2>2. Tipos de buses: datos, direcciones y control</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Bus</th>
+            <th>Función</th>
+            <th>Características clave</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Bus de datos</strong></td>
+            <td>Transporta los datos entre CPU, memoria y dispositivos de E/S.</td>
+            <td>Ancho (bits) determina cuántos bits se transfieren por ciclo. Ej.: 32 o 64 bits.</td>
+          </tr>
+          <tr>
+            <td><strong>Bus de direcciones</strong></td>
+            <td>Transporta las direcciones de memoria o de registros de E/S.</td>
+            <td>Su ancho define el espacio direccionable (2^n). Ej.: 32 bits → 4 GB.</td>
+          </tr>
+          <tr>
+            <td><strong>Bus de control</strong></td>
+            <td>Transporta señales de control (lectura/escritura, reloj, interrupciones, reset).</td>
+            <td>Coordina operaciones: cuándo leer, cuándo escribir, qué dispositivo está activo.</td>
+          </tr>
+        </tbody>
+      </table>
+      <p>
+        Además, los buses se clasifican por su forma de operar: <em>sincrónicos</em> (con reloj común) o
+        <em>asincrónicos</em>; <em>paralelos</em> (varias líneas simultáneas) o <em>seriales</em> (una línea, mayor
+        frecuencia); y <em>compartidos</em> (varios dispositivos en la misma línea) o <em>punto a punto</em>.
+      </p>
+    </section>
+
+    <section>
+      <h2>3. Evolución y tipos de buses de E/S</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Bus</th>
+            <th>Topología</th>
+            <th>Ancho de banda típico</th>
+            <th>Uso actual</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>PCI</td><td>Compartido, paralelo</td><td>~133 MB/s (32 bits)</td><td>Legado</td></tr>
+          <tr><td>PCIe x1</td><td>Punto a punto, serial</td><td>~250 MB/s (Gen1) – 985 MB/s (Gen3)</td><td>DAQ, red, almacenamiento</td></tr>
+          <tr><td>PCIe x4</td><td>Punto a punto, serial</td><td>~1 GB/s – 3.9 GB/s</td><td>Captura de video, NVMe</td></tr>
+          <tr><td>PCIe x16</td><td>Punto a punto, serial</td><td>~4 GB/s – 15.8 GB/s</td><td>GPU dedicada</td></tr>
+          <tr><td>USB 3.x</td><td>Punto a punto, serial</td><td>~625 MB/s – 1.25 GB/s</td><td>Periféricos externos</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section>
+      <h2>4. Tarjetas de expansión</h2>
+      <p>
+        Una <strong>tarjeta de expansión</strong> es un circuito impreso que se inserta en un slot de la placa base
+        para añadir o mejorar capacidades del computador: captura de datos, gráficos, red, sonido, almacenamiento.
+        Se conecta al sistema a través de un bus (PCI/PCIe) y requiere un <strong>driver</strong> para comunicarse
+        con el sistema operativo y un <strong>SDK/API</strong> para que las aplicaciones la utilicen.
+      </p>
+      <div class="grid grid-2">
+        <div class="card purple">
+          <h3>Relación con la memoria</h3>
+          <p>Las tarjetas usan DMA para escribir datos directamente en la RAM sin intervención de la CPU, reduciendo latencia y carga del procesador.</p>
+        </div>
+        <div class="card green">
+          <h3>Relación con periféricos</h3>
+          <p>Actúan como puente entre el computador y el mundo físico: sensores, cámaras, instrumentos de medición.</p>
+        </div>
+        <div class="card gold">
+          <h3>Plug and Play</h3>
+          <p>El SO detecta la tarjeta, carga el driver y asigna recursos (IRQ, memoria mapeada) automáticamente.</p>
+        </div>
+        <div class="card red">
+          <h3>Compatibilidad</h3>
+          <p>Depende del slot disponible, lanes PCIe, versión del driver, sistema operativo y alimentación.</p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>5. Impacto en el software aplicativo</h2>
+      <p>
+        El conocimiento de buses y tarjetas de expansión impacta directamente el rendimiento y la compatibilidad del
+        software desarrollado por profesionales:
+      </p>
+      <ul class="brutal">
+        <li><strong>Rendimiento:</strong> el ancho de banda del bus limita la tasa de transferencia; un mal diseño (polling, copias innecesarias) satura la CPU.</li>
+        <li><strong>Latencia:</strong> el uso de interrupciones y DMA reduce el tiempo de respuesta.</li>
+        <li><strong>Compatibilidad:</strong> APIs y versiones de drivers deben coincidir con el hardware y el SO.</li>
+        <li><strong>Escalabilidad:</strong> añadir tarjetas exige verificar que el bus no se sature.</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>6. Casos de estudio (fallos por desconocimiento)</h2>
+      <div class="grid grid-2">
+        <div class="card red">
+          <h3>Incompatibilidad hardware–software</h3>
+          <p>Una empresa instala una GPU dedicada para acelerar el renderizado 3D, pero el software no aprovecha la aceleración por hardware debido a incompatibilidad con el bus PCIe (drivers o lanes insuficientes).</p>
+        </div>
+        <div class="card red">
+          <h3>Saturación del bus de datos</h3>
+          <p>En un sistema de video en tiempo real, varios dispositivos de expansión comparten el mismo bus, provocando lentitud anormal por contención.</p>
+        </div>
+        <div class="card red">
+          <h3>Falta de soporte de hardware</h3>
+          <p>Un desarrollador programa para una tarjeta de captura sin consultar el SDK del fabricante, generando errores de comunicación y pérdida de datos.</p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>7. Recursos visuales: flujo de datos</h2>
+      <div class="diagram">
+        <svg viewBox="0 0 820 160" xmlns="http://www.w3.org/2000/svg">
+          <rect x="10" y="40" width="120" height="60" fill="#EFD9EC" stroke="#000" stroke-width="3"/>
+          <text x="70" y="75" text-anchor="middle" font-weight="800" font-size="12">Aplicación</text>
+          <rect x="170" y="40" width="120" height="60" fill="#DCEFD9" stroke="#000" stroke-width="3"/>
+          <text x="230" y="75" text-anchor="middle" font-weight="800" font-size="12">SDK / API</text>
+          <rect x="330" y="40" width="120" height="60" fill="#FBF1D4" stroke="#000" stroke-width="3"/>
+          <text x="390" y="75" text-anchor="middle" font-weight="800" font-size="12">Driver</text>
+          <rect x="490" y="40" width="120" height="60" fill="#ADD8E6" stroke="#000" stroke-width="3"/>
+          <text x="550" y="75" text-anchor="middle" font-weight="800" font-size="12">Bus PCIe</text>
+          <rect x="650" y="40" width="160" height="60" fill="#FBE0DD" stroke="#000" stroke-width="3"/>
+          <text x="730" y="75" text-anchor="middle" font-weight="800" font-size="12">Tarjeta de captura</text>
+          <line x1="130" y1="70" x2="170" y2="70" stroke="#000" stroke-width="3" marker-end="url(#a)"/>
+          <line x1="290" y1="70" x2="330" y2="70" stroke="#000" stroke-width="3" marker-end="url(#a)"/>
+          <line x1="450" y1="70" x2="490" y2="70" stroke="#000" stroke-width="3" marker-end="url(#a)"/>
+          <line x1="610" y1="70" x2="650" y2="70" stroke="#000" stroke-width="3" marker-end="url(#a)"/>
+          <defs><marker id="a" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#000"/></marker></defs>
+        </svg>
+        <p style="text-align:center; font-size:0.85rem; margin:0.5rem 0 0;">Figura 2. Flujo de comunicación entre la aplicación y una tarjeta de expansión.</p>
+      </div>
+    </section>
+  </div>
+</BaseLayout>

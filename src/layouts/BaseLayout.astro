@@ -1,0 +1,63 @@
+---
+import '../styles/global.css';
+import { ClientRouter } from 'astro:transitions';
+
+interface Props {
+  title: string;
+  description?: string;
+  active?: string;
+}
+const { title, description = 'Buses del sistema y tarjetas de expansión - Caso 3', active = '' } = Astro.props;
+
+const nav = [
+  { href: '/', label: 'Introducción' },
+  { href: '/objetivo', label: 'Objetivo' },
+  { href: '/desarrollo', label: 'Desarrollo' },
+  { href: '/caso', label: 'Caso de estudio' },
+  { href: '/reflexiones', label: 'Reflexiones' },
+  { href: '/referencias', label: 'Referencias' },
+];
+---
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <title>{title} | Tarea 08 - Individual Buses y tarjetas de expansión</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="icon" type="image/svg+xml" href={`${import.meta.env.BASE_URL}favicon.svg`} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <ClientRouter />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="bar">
+        <a class="brand" href={import.meta.env.BASE_URL}>Buses y Tarjetas</a>
+        <nav>
+          <ul class="nav-links">
+            {nav.map((n) => (
+              <li>
+                <a href={`${import.meta.env.BASE_URL}${n.href}`} class={active === n.href ? 'active' : ''}>{n.label}</a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <slot />
+    </main>
+
+    <footer class="site-footer">
+      <div class="container">
+        <p>Tarea 08 - Individual Buses y tarjetas de expansión · Caso 3</p>
+      </div>
+    </footer>
+  </body>
+</html>
