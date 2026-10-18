@@ -176,7 +176,7 @@ with nidaqmx.Task() as task:
           <tr><th>Factor</th><th>Impacto</th></tr>
         </thead>
         <tbody>
-          <tr><td>Ancho de banda PCIe x1</td><td>~250 MB/s (Gen1) a ~985 MB/s (Gen3). La adquisición a 250 kS/s × 16 bits ≈ 0,5 MB/s, muy por debajo del límite.</td></tr>
+          <tr><td>Ancho de banda PCIe x1</td><td>~250 MB/s (Gen1) a ~985 MB/s (Gen3). Incluso a la tasa máxima de la tarjeta (250 kS/s × 16 bits ≈ 0,5 MB/s), queda muy por debajo del límite.</td></tr>
           <tr><td>DMA</td><td>Evita que la CPU copie datos; reduce carga y latencia.</td></tr>
           <tr><td>Buffers circulares</td><td>Evitan pérdida de muestras cuando la aplicación no lee a tiempo.</td></tr>
           <tr><td>Interrupciones</td><td>Notifican al SO cuando hay datos listos, evitando polling continuo.</td></tr>
