@@ -15,7 +15,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       <h2>1. ¿Qué es un bus del sistema?</h2>
       <p>
         Un <strong>bus</strong> es un conjunto de líneas de comunicación (eléctricas o lógicas) que interconectan los
-        componentes de un computador (CPU: Central Processing Unit), memoria, dispositivos de E/S) permitiendo el intercambio de datos,
+        componentes de un computador (CPU, memoria, dispositivos de E/S) permitiendo el intercambio de datos,
         direcciones y señales de control. La arquitectura de buses determina el rendimiento, la escalabilidad y la
         compatibilidad del sistema.
       </p>
@@ -24,7 +24,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
           <rect x="10" y="20" width="160" height="60" fill="#EFD9EC" stroke="#000" stroke-width="3"/>
           <text x="90" y="55" text-anchor="middle" font-weight="800" font-size="14">CPU</text>
           <rect x="300" y="20" width="160" height="60" fill="#DCEFD9" stroke="#000" stroke-width="3"/>
-          <text x="380" y="55" text-anchor="middle" font-weight="800" font-size="14">Memoria RAM (Random Access Memory)</text>
+          <text x="380" y="55" text-anchor="middle" font-weight="800" font-size="14">Memoria RAM</text>
           <rect x="590" y="20" width="160" height="60" fill="#FBF1D4" stroke="#000" stroke-width="3"/>
           <text x="670" y="55" text-anchor="middle" font-weight="800" font-size="14">Tarjeta de expansión</text>
 
@@ -58,7 +58,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
           <tr>
             <td><strong>Bus de direcciones</strong></td>
             <td>Transporta las direcciones de memoria o de registros de E/S.</td>
-            <td>Su ancho define el espacio direccionable (2^n). Ej.: 32 bits → 4 GB (gigabytes).</td>
+            <td>Su ancho define el espacio direccionable (2^n). Ej.: 32 bits → 4 GB.</td>
           </tr>
           <tr>
             <td><strong>Bus de control</strong></td>
@@ -86,11 +86,11 @@ import BaseLayout from '../layouts/BaseLayout.astro';
           </tr>
         </thead>
         <tbody>
-          <tr><td>PCI (Peripheral Component Interconnect)</td><td>Compartido, paralelo</td><td>~133 MB (megabytes)/s (32 bits)</td><td>Legado</td></tr>
-          <tr><td>PCIe (Peripheral Component Interconnect Express) x1</td><td>Punto a punto, serial</td><td>~250 MB/s (Gen1) – 985 MB/s (Gen3)</td><td>DAQ (Data Acquisition), red, almacenamiento</td></tr>
-          <tr><td>PCIe x4</td><td>Punto a punto, serial</td><td>~1 GB/s – 3.9 GB/s</td><td>Captura de video, NVMe (Non-Volatile Memory Express)</td></tr>
-          <tr><td>PCIe x16</td><td>Punto a punto, serial</td><td>~4 GB/s – 15.8 GB/s</td><td>GPU (Graphics Processing Unit) dedicada</td></tr>
-          <tr><td>USB (Universal Serial Bus) 3.x</td><td>Punto a punto, serial</td><td>~625 MB/s – 1.25 GB/s</td><td>Periféricos externos</td></tr>
+          <tr><td>PCI</td><td>Compartido, paralelo</td><td>~133 MB/s (32 bits)</td><td>Legado</td></tr>
+          <tr><td>PCIe x1</td><td>Punto a punto, serial</td><td>~250 MB/s (Gen1) – 985 MB/s (Gen3)</td><td>DAQ, red, almacenamiento</td></tr>
+          <tr><td>PCIe x4</td><td>Punto a punto, serial</td><td>~1 GB/s – 3.9 GB/s</td><td>Captura de video, NVMe</td></tr>
+          <tr><td>PCIe x16</td><td>Punto a punto, serial</td><td>~4 GB/s – 15.8 GB/s</td><td>GPU dedicada</td></tr>
+          <tr><td>USB 3.x</td><td>Punto a punto, serial</td><td>~625 MB/s – 1.25 GB/s</td><td>Periféricos externos</td></tr>
         </tbody>
       </table>
     </section>
@@ -100,13 +100,13 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       <p>
         Una <strong>tarjeta de expansión</strong> es un circuito impreso que se inserta en un slot de la placa base
         para añadir o mejorar capacidades del computador: captura de datos, gráficos, red, sonido, almacenamiento.
-        Se conecta al sistema a través de un bus (PCI: Peripheral Component Interconnect / PCIe: Peripheral Component Interconnect Express) y requiere un <strong>driver</strong> para comunicarse
-        con el sistema operativo y un <strong>SDK (Software Development Kit) / API (Application Programming Interface)</strong> para que las aplicaciones la utilicen.
+        Se conecta al sistema a través de un bus (PCI/PCIe) y requiere un <strong>driver</strong> para comunicarse
+        con el sistema operativo y un <strong>SDK/API</strong> para que las aplicaciones la utilicen.
       </p>
       <div class="grid grid-2">
         <div class="card purple">
           <h3>Relación con la memoria</h3>
-          <p>Las tarjetas usan DMA (Direct Memory Access) para escribir datos directamente en la RAM sin intervención de la CPU, reduciendo latencia y carga del procesador.</p>
+          <p>Las tarjetas usan DMA para escribir datos directamente en la RAM sin intervención de la CPU, reduciendo latencia y carga del procesador.</p>
         </div>
         <div class="card green">
           <h3>Relación con periféricos</h3>
@@ -114,7 +114,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
         </div>
         <div class="card gold">
           <h3>Plug and Play</h3>
-          <p>El SO (Operating System) detecta la tarjeta, carga el driver y asigna recursos (IRQ: Interrupt Request), memoria mapeada) automáticamente.</p>
+          <p>El SO detecta la tarjeta, carga el driver y asigna recursos (IRQ, memoria mapeada) automáticamente.</p>
         </div>
         <div class="card red">
           <h3>Compatibilidad</h3>
@@ -132,7 +132,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       <ul class="brutal">
         <li><strong>Rendimiento:</strong> el ancho de banda del bus limita la tasa de transferencia; un mal diseño (polling, copias innecesarias) satura la CPU.</li>
         <li><strong>Latencia:</strong> el uso de interrupciones y DMA reduce el tiempo de respuesta.</li>
-        <li><strong>Compatibilidad:</strong> APIs (Application Programming Interfaces) y versiones de drivers deben coincidir con el hardware y el SO.</li>
+        <li><strong>Compatibilidad:</strong> APIs y versiones de drivers deben coincidir con el hardware y el SO.</li>
         <li><strong>Escalabilidad:</strong> añadir tarjetas exige verificar que el bus no se sature.</li>
       </ul>
     </section>
@@ -150,7 +150,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
         </div>
         <div class="card red">
           <h3>Falta de soporte de hardware</h3>
-          <p>Un desarrollador programa para una tarjeta de captura sin consultar el SDK (Software Development Kit) del fabricante, generando errores de comunicación y pérdida de datos.</p>
+          <p>Un desarrollador programa para una tarjeta de captura sin consultar el SDK del fabricante, generando errores de comunicación y pérdida de datos.</p>
         </div>
       </div>
     </section>
@@ -162,7 +162,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
           <rect x="10" y="40" width="120" height="60" fill="#EFD9EC" stroke="#000" stroke-width="3"/>
           <text x="70" y="75" text-anchor="middle" font-weight="800" font-size="12">Aplicación</text>
           <rect x="170" y="40" width="120" height="60" fill="#DCEFD9" stroke="#000" stroke-width="3"/>
-          <text x="230" y="75" text-anchor="middle" font-weight="800" font-size="12">SDK (Software Development Kit) / API (Application Programming Interface)</text>
+          <text x="230" y="75" text-anchor="middle" font-weight="800" font-size="12">SDK / API</text>
           <rect x="330" y="40" width="120" height="60" fill="#FBF1D4" stroke="#000" stroke-width="3"/>
           <text x="390" y="75" text-anchor="middle" font-weight="800" font-size="12">Driver</text>
           <rect x="490" y="40" width="120" height="60" fill="#ADD8E6" stroke="#000" stroke-width="3"/>
