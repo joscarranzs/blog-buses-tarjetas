@@ -6,7 +6,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     <div class="container">
       <span class="tag">Página de estudio de caso</span>
       <h1>Integración de hardware especializado en un software nuevo</h1>
-      <p>Aplicación de monitoreo industrial que adquiere señales analógicas mediante una tarjeta DAQ (Adquisición de Datos, Data Acquisition) PCIe (Interconexión de Componentes Periféricos Express, Peripheral Component Interconnect Express) (NI (National Instruments) PCIe-6321) y el driver NI-DAQmx (driver de adquisición de datos de National Instruments, National Instruments Data Acquisition).</p>
+      <p>Aplicación de monitoreo industrial que adquiere señales analógicas mediante una tarjeta DAQ (Data Acquisition) PCIe (Peripheral Component Interconnect Express) (NI (National Instruments) PCIe-6321) y el driver NI-DAQmx (National Instruments Data Acquisition).</p>
     </div>
   </section>
 
@@ -31,17 +31,17 @@ import BaseLayout from '../layouts/BaseLayout.astro';
           <tr><th>Componente</th><th>Selección específica y justificación</th></tr>
         </thead>
         <tbody>
-          <tr><td>Tarjeta DAQ</td><td><strong>NI PCIe-6321 (X Series)</strong>: 16 AI (Entradas Analógicas, Analog Inputs) (16 bits, 250 kS/s agregados), 2 AO (Salidas Analógicas, Analog Outputs) (900 kS/s), 24 DIO (Entradas/Salidas Digitales, Digital Input/Output), 4 contadores 32 bits. Bus PCIe x1 v1.1. Ideal para monitoreo industrial de baja/media velocidad.</td></tr>
-          <tr><td>Placa base</td><td><strong>ASUS PRIME B760M-A D4</strong> (micro-ATX, chipset Intel B760): expone un slot PCIe 4.0 x16 y un slot PCIe 3.0 x1 libre, por lo que el PCIe-6321 (x1) se instala sin sacrificar la GPU (Unidad de Procesamiento Gráfico, Graphics Processing Unit). Soporta CPUs (Unidades Centrales de Procesamiento, Central Processing Units) Intel de 12.ª/13.ª/14.ª gen y memoria DDR4 (Memoria de Doble Tasa de Datos 4, Double Data Rate 4). Verificar que el slot x1 no esté compartido con M.2 y que no esté reservado para la GPU.</td></tr>
-          <tr><td>CPU (Unidad Central de Procesamiento, Central Processing Unit)</td><td><strong>Intel Core i5-13400</strong> (6 núcleos de rendimiento + 4 de eficiencia): suficiente para procesar y registrar datos de adquisición en tiempo real sin saturar la CPU, dejando margen para la aplicación y el driver NI-DAQmx.</td></tr>
-          <tr><td>RAM (Memoria de Acceso Aleatorio, Random Access Memory)</td><td><strong>Kingston Fury Beast 16 GB (gigabytes) (2×8 GB) DDR4-3200</strong>: capacidad para buffers de adquisición y almacenamiento temporal de muestras; 16 GB evita paginación a disco durante capturas prolongadas.</td></tr>
-          <tr><td>Almacenamiento</td><td><strong>WD Blue SN580 1 TB (terabytes) (NVMe (Memoria No Volátil Express, Non-Volatile Memory Express) PCIe 4.0)</strong>: escritura sostenida alta para registro continuo de datos; evita cuellos de botella de discos mecánicos.</td></tr>
+          <tr><td>Tarjeta DAQ</td><td><strong>NI PCIe-6321 (X Series)</strong>: 16 AI (Analog Inputs) (16 bits, 250 kS/s agregados), 2 AO (Analog Outputs) (900 kS/s), 24 DIO (Digital Input/Output), 4 contadores 32 bits. Bus PCIe x1 v1.1. Ideal para monitoreo industrial de baja/media velocidad.</td></tr>
+          <tr><td>Placa base</td><td><strong>ASUS PRIME B760M-A D4</strong> (micro-ATX, chipset Intel B760): expone un slot PCIe 4.0 x16 y un slot PCIe 3.0 x1 libre, por lo que el PCIe-6321 (x1) se instala sin sacrificar la GPU (Graphics Processing Unit). Soporta CPUs (Central Processing Units) Intel de 12.ª/13.ª/14.ª gen y memoria DDR4 (Double Data Rate 4). Verificar que el slot x1 no esté compartido con M.2 y que no esté reservado para la GPU.</td></tr>
+          <tr><td>CPU (Central Processing Unit)</td><td><strong>Intel Core i5-13400</strong> (6 núcleos de rendimiento + 4 de eficiencia): suficiente para procesar y registrar datos de adquisición en tiempo real sin saturar la CPU, dejando margen para la aplicación y el driver NI-DAQmx.</td></tr>
+          <tr><td>RAM (Random Access Memory)</td><td><strong>Kingston Fury Beast 16 GB (gigabytes) (2×8 GB) DDR4-3200</strong>: capacidad para buffers de adquisición y almacenamiento temporal de muestras; 16 GB evita paginación a disco durante capturas prolongadas.</td></tr>
+          <tr><td>Almacenamiento</td><td><strong>WD Blue SN580 1 TB (terabytes) (NVMe (Non-Volatile Memory Express) PCIe 4.0)</strong>: escritura sostenida alta para registro continuo de datos; evita cuellos de botella de discos mecánicos.</td></tr>
           <tr><td>Fuente</td><td><strong>Corsair CX550 (550 W, 80+ Bronze)</strong>: el PCIe-6321 consume 1.4 W en +3.3 V y 8.6 W en +12 V (sin conector de disco) o 3 W en +12 V y 15 W en +5 V (con conector de disco); 550 W da margen amplio para el resto del sistema.</td></tr>
-          <tr><td>Gabinete</td><td><strong>Fractal Design Pop Air (ATX (Advanced Technology Extended, factor de forma))</strong> o similar con ventilación frontal: mantiene la temperatura dentro del rango de operación de la tarjeta (0 °C a 50 °C).</td></tr>
-          <tr><td>Acondicionamiento de señal</td><td><strong>NI SCB-68A</strong> (bloque de conexión de 68 pines) para cablear sensores al conector VHDCI (Conector de Interfaz de Alta Densidad de Video, Very High Density Cable Interconnect) de la tarjeta; para termopares usar módulos SCC (módulos de acondicionamiento de señal, Signal Conditioning Component) o acondicionamiento externo con amplificación/aislamiento.</td></tr>
+          <tr><td>Gabinete</td><td><strong>Fractal Design Pop Air (ATX (Advanced Technology Extended))</strong> o similar con ventilación frontal: mantiene la temperatura dentro del rango de operación de la tarjeta (0 °C a 50 °C).</td></tr>
+          <tr><td>Acondicionamiento de señal</td><td><strong>NI SCB-68A</strong> (bloque de conexión de 68 pines) para cablear sensores al conector VHDCI (Very High Density Cable Interconnect) de la tarjeta; para termopares usar módulos SCC (Signal Conditioning Component) o acondicionamiento externo con amplificación/aislamiento.</td></tr>
           <tr><td>Temperatura / entorno</td><td>Operación de 0 °C a 50 °C, almacenamiento de -40 °C a 70 °C, humedad 10-90 % RH sin condensación, uso en interiores. Garantizar ventilación del gabinete.</td></tr>
           <tr><td>Calibración</td><td>Tiempo de calentamiento recomendado de 15 minutos; intervalo de calibración de 2 años.</td></tr>
-          <tr><td>Sensores</td><td>Termopar tipo K: <strong>Omega TJ36-CAXL-116U-6</strong> (sonda, rango -40 a 260 °C) con acondicionamiento (NI SCB-68A con compensación de unión fría) o amplificador AD595 (amplificador para termopares, Analog Devices AD595). Transductor de presión 4-20 mA: <strong>Omega PX309-030G5V</strong> (0-30 psi). RTD (Detector de Temperatura Resistivo, Resistance Temperature Detector) PT100 (sensor RTD de platino de 100 ohmios): <strong>Omega PR-13-2-100-1/8-6</strong>. Todos con rangos compatibles con las entradas analógicas del PCIe-6321 (±10 V, ±5 V, ±1 V, ±0.2 V).</td></tr>
+          <tr><td>Sensores</td><td>Termopar tipo K: <strong>Omega TJ36-CAXL-116U-6</strong> (sonda, rango -40 a 260 °C) con acondicionamiento (NI SCB-68A con compensación de unión fría) o amplificador AD595 (Analog Devices AD595). Transductor de presión 4-20 mA: <strong>Omega PX309-030G5V</strong> (0-30 psi). RTD (Resistance Temperature Detector) PT100 (100-ohm platinum RTD): <strong>Omega PR-13-2-100-1/8-6</strong>. Todos con rangos compatibles con las entradas analógicas del PCIe-6321 (±10 V, ±5 V, ±1 V, ±0.2 V).</td></tr>
         </tbody>
       </table>
       <div class="callout">
@@ -114,15 +114,15 @@ import BaseLayout from '../layouts/BaseLayout.astro';
           <tr><td>Driver</td><td><strong>NI-DAQmx 2024 Q1 (o superior)</strong>, instalado desde NI Package Manager; incluye el driver del kernel para el PCIe-6321.</td></tr>
           <tr><td>Entorno de desarrollo</td><td>Visual Studio 2022 (C#/.NET 6+) o Python 3.11+ con la librería <code>nidaqmx</code> oficial de NI.</td></tr>
           <tr><td>Bibliotecas</td><td><code>NationalInstruments.DAQmx</code> (.NET), <code>nidaqmx</code> (Python), o LabVIEW 2023+ para prototipado rápido.</td></tr>
-          <tr><td>Diagnóstico</td><td>NI MAX (Measurement &amp; Automation Explorer, Explorador de Medición y Automatización; National Instruments) para detectar la tarjeta, probar canales y verificar el driver.</td></tr>
+          <tr><td>Diagnóstico</td><td>NI MAX (Measurement & Automation Explorer; National Instruments) para detectar la tarjeta, probar canales y verificar el driver.</td></tr>
           <tr><td>Aplicación</td><td>
             <strong>Tipo:</strong> aplicación de escritorio en C# (.NET 6+) o Python 3.11+ que monitorea variables industriales en tiempo real.<br/>
             <strong>Cómo se implementa:</strong>
             <ol style="margin:0.4rem 0 0 1.2rem; padding:0;">
               <li><strong>Configuración:</strong> crear una tarea DAQmx, añadir canales analógicos (AI) con rango ±10 V, definir la tasa de muestreo (ej. 10 kS/s por canal) y el modo de adquisición (continuo).</li>
-              <li><strong>Lectura:</strong> usar lectura analógica en modo DMA (Acceso Directo a Memoria, Direct Memory Access) (método <code>Read</code> con buffer preasignado) en lugar de polling; NI-DAQmx transfiere datos del dispositivo a la RAM por DMA.</li>
+              <li><strong>Lectura:</strong> usar lectura analógica en modo DMA (Direct Memory Access) (método <code>Read</code> con buffer preasignado) en lugar de polling; NI-DAQmx transfiere datos del dispositivo a la RAM por DMA.</li>
               <li><strong>Buffer circular:</strong> mantener un buffer en memoria (ej. <code>ConcurrentQueue&lt;double[]&gt;</code> en C# o <code>collections.deque</code> en Python) donde un hilo productor (callback de DAQmx) encola muestras y un hilo consumidor las procesa/registra.</li>
-              <li><strong>Registro:</strong> escribir lotes de muestras a un archivo CSV (Valores Separados por Comas, Comma-Separated Values) o base de datos (SQLite) en el SSD (Unidad de Estado Sólido, Solid State Drive) (WD Blue SN580) en bloques, con flush periódico para no perder datos.</li>
+              <li><strong>Registro:</strong> escribir lotes de muestras a un archivo CSV (Comma-Separated Values) o base de datos (SQLite) en el SSD (Solid State Drive) (WD Blue SN580) en bloques, con flush periódico para no perder datos.</li>
               <li><strong>Control:</strong> manejar eventos de error, timeout y parada ordenada (detener la tarea, liberar recursos).</li>
             </ol>
             <strong>Ejemplo (Python, nidaqmx):</strong>
@@ -144,7 +144,7 @@ with nidaqmx.Task() as task:
           <rect x="10" y="45" width="110" height="55" fill="#EFD9EC" stroke="#000" stroke-width="3"/>
           <text x="65" y="78" text-anchor="middle" font-weight="800" font-size="11">Aplicación</text>
           <rect x="150" y="45" width="110" height="55" fill="#DCEFD9" stroke="#000" stroke-width="3"/>
-          <text x="205" y="78" text-anchor="middle" font-weight="800" font-size="11">NI-DAQmx (driver de adquisición de datos de National Instruments, National Instruments Data Acquisition) / API (Interfaz de Programación de Aplicaciones, Application Programming Interface)</text>
+          <text x="205" y="78" text-anchor="middle" font-weight="800" font-size="11">NI-DAQmx (National Instruments Data Acquisition) / API (Application Programming Interface)</text>
           <rect x="290" y="45" width="110" height="55" fill="#FBF1D4" stroke="#000" stroke-width="3"/>
           <text x="345" y="78" text-anchor="middle" font-weight="800" font-size="11">Driver kernel</text>
           <rect x="430" y="45" width="110" height="55" fill="#ADD8E6" stroke="#000" stroke-width="3"/>
@@ -152,7 +152,7 @@ with nidaqmx.Task() as task:
           <rect x="570" y="45" width="130" height="55" fill="#FBE0DD" stroke="#000" stroke-width="3"/>
           <text x="635" y="78" text-anchor="middle" font-weight="800" font-size="11">Tarjeta DAQ</text>
           <rect x="730" y="45" width="140" height="55" fill="#EFD9EC" stroke="#000" stroke-width="3"/>
-          <text x="800" y="78" text-anchor="middle" font-weight="800" font-size="11">Sensores / ADC (Convertidor Analógico-Digital, Analog-to-Digital Converter)</text>
+          <text x="800" y="78" text-anchor="middle" font-weight="800" font-size="11">Sensores / ADC (Analog-to-Digital Converter)</text>
           <line x1="120" y1="72" x2="150" y2="72" stroke="#000" stroke-width="3" marker-end="url(#b)"/>
           <line x1="260" y1="72" x2="290" y2="72" stroke="#000" stroke-width="3" marker-end="url(#b)"/>
           <line x1="400" y1="72" x2="430" y2="72" stroke="#000" stroke-width="3" marker-end="url(#b)"/>
@@ -163,8 +163,8 @@ with nidaqmx.Task() as task:
         <p style="text-align:center; font-size:0.85rem; margin:0.5rem 0 0;">Figura 3. Flujo de comunicación en el Caso 3.</p>
       </div>
       <p>
-        El flujo es: la aplicación configura la adquisición mediante la API (Interfaz de Programación de Aplicaciones, Application Programming Interface) NI-DAQmx; el driver del kernel traduce las
-        llamadas y envía comandos a la tarjeta por el bus PCIe; la tarjeta muestrea la señal analógica (ADC (Convertidor Analógico-Digital, Analog-to-Digital Converter)) y transfiere
+        El flujo es: la aplicación configura la adquisición mediante la API (Application Programming Interface) NI-DAQmx; el driver del kernel traduce las
+        llamadas y envía comandos a la tarjeta por el bus PCIe; la tarjeta muestrea la señal analógica (ADC (Analog-to-Digital Converter)) y transfiere
         los datos a la RAM del host mediante <strong>DMA</strong>; la aplicación lee los buffers y procesa/registra los datos.
       </p>
     </section>
@@ -179,7 +179,7 @@ with nidaqmx.Task() as task:
           <tr><td>Ancho de banda PCIe x1</td><td>~250 MB (megabytes)/s (Gen1) a ~985 MB/s (Gen3). Incluso a la tasa máxima de la tarjeta (250 kS/s × 16 bits ≈ 0,5 MB/s), queda muy por debajo del límite.</td></tr>
           <tr><td>DMA</td><td>Evita que la CPU copie datos; reduce carga y latencia.</td></tr>
           <tr><td>Buffers circulares</td><td>Evitan pérdida de muestras cuando la aplicación no lee a tiempo.</td></tr>
-          <tr><td>Interrupciones</td><td>Notifican al SO (Sistema Operativo, Operating System) cuando hay datos listos, evitando polling continuo.</td></tr>
+          <tr><td>Interrupciones</td><td>Notifican al SO (Operating System) cuando hay datos listos, evitando polling continuo.</td></tr>
           <tr><td>Contención</td><td>Compartir el bus con GPU/NVMe pesados puede generar latencia; elegir slot adecuado.</td></tr>
         </tbody>
       </table>
@@ -205,7 +205,7 @@ with nidaqmx.Task() as task:
           <h3>Software</h3>
           <ul class="brutal">
             <li>Driver NI-DAQmx instalado y compatible con el SO.</li>
-            <li>SDK (Kit de Desarrollo de Software, Software Development Kit) / API (Interfaz de Programación de Aplicaciones, Application Programming Interface) en el lenguaje elegido (C#, Python, LabVIEW).</li>
+            <li>SDK (Software Development Kit) / API (Application Programming Interface) en el lenguaje elegido (C#, Python, LabVIEW).</li>
             <li>NI MAX para verificación y diagnóstico.</li>
             <li>Manejo de errores, timeouts y reconexión.</li>
           </ul>
@@ -221,7 +221,7 @@ with nidaqmx.Task() as task:
         <li>Evitar compartir el bus PCIe con dispositivos de alto consumo (GPU, NVMe) en el mismo root complex.</li>
         <li>Usar interrupciones en lugar de polling para reducir carga de CPU.</li>
         <li>Validar el sistema con NI MAX antes de integrar el software.</li>
-        <li>Documentar versiones de driver y SDK (Kit de Desarrollo de Software, Software Development Kit) para garantizar compatibilidad futura.</li>
+        <li>Documentar versiones de driver y SDK (Software Development Kit) para garantizar compatibilidad futura.</li>
       </ol>
     </section>
 
@@ -252,7 +252,7 @@ with nidaqmx.Task() as task:
         <tbody>
           <tr>
             <td><strong>Sistema operativo</strong></td>
-            <td>Gestiona el bus PCIe, asigna recursos (IRQ (Solicitud de Interrupción, Interrupt Request), memoria mapeada) y carga el driver del dispositivo.</td>
+            <td>Gestiona el bus PCIe, asigna recursos (IRQ (Interrupt Request), memoria mapeada) y carga el driver del dispositivo.</td>
             <td>Windows 10/11 (64 bits) o Linux compatible con NI-DAQmx.</td>
           </tr>
           <tr>
@@ -261,9 +261,9 @@ with nidaqmx.Task() as task:
             <td>NI-DAQmx 2024 Q1 instalado desde NI Package Manager.</td>
           </tr>
           <tr>
-            <td><strong>SDK (Kit de Desarrollo de Software, Software Development Kit) / API (Interfaz de Programación de Aplicaciones, Application Programming Interface) (NI-DAQmx)</strong></td>
+            <td><strong>SDK (Software Development Kit) / API (Application Programming Interface) (NI-DAQmx)</strong></td>
             <td>Expone funciones para configurar canales, tasa de muestreo, triggers y leer datos desde el lenguaje elegido.</td>
-            <td><code>NationalInstruments.DAQmx</code> (.NET), <code>nidaqmx</code> (Python), LabVIEW DAQmx VIs (Instrumentos Virtuales, Virtual Instruments).</td>
+            <td><code>NationalInstruments.DAQmx</code> (.NET), <code>nidaqmx</code> (Python), LabVIEW DAQmx VIs (Virtual Instruments).</td>
           </tr>
           <tr>
             <td><strong>Entorno de desarrollo</strong></td>
