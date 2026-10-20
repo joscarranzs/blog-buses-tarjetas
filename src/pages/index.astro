@@ -31,7 +31,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
         <div class="card purple">
           <h3>Buses del sistema</h3>
           <p>
-            Son el medio de comunicación que conecta la CPU, la memoria y los dispositivos de entrada/salida.
+            Son el medio de comunicación que conecta la CPU (Unidad Central de Procesamiento, Central Processing Unit), la memoria y los dispositivos de entrada/salida.
             Definen cuántos datos se mueven, a qué velocidad y con qué latencia. Sin ellos no existe intercambio
             de información dentro del equipo.
           </p>
@@ -40,8 +40,8 @@ import BaseLayout from '../layouts/BaseLayout.astro';
           <h3>Tarjetas de expansión</h3>
           <p>
             Extienden las capacidades del computador (captura de datos, gráficos, red, almacenamiento). Se
-            conectan a través de buses (PCI/PCIe) e interactúan con el software mediante controladores (drivers)
-            y kits de desarrollo (SDK).
+            conectan a través de buses (PCI (Interconexión de Componentes Periféricos, Peripheral Component Interconnect) / PCIe (Interconexión de Componentes Periféricos Express, Peripheral Component Interconnect Express)) e interactúan con el software mediante controladores (drivers)
+            y kits de desarrollo (SDK (Kit de Desarrollo de Software, Software Development Kit)).
           </p>
         </div>
       </div>
@@ -54,14 +54,14 @@ import BaseLayout from '../layouts/BaseLayout.astro';
         los buses y las tarjetas de expansión permite al desarrollador:
       </p>
       <ul class="brutal">
-        <li>Elegir las APIs y los SDK correctos para comunicarse con el hardware.</li>
-        <li>Optimizar la transferencia de datos (DMA, buffers, interrupciones).</li>
+        <li>Elegir las APIs (Interfaces de Programación de Aplicaciones, Application Programming Interfaces) y los SDK correctos para comunicarse con el hardware.</li>
+        <li>Optimizar la transferencia de datos (DMA (Acceso Directo a Memoria, Direct Memory Access), buffers, interrupciones).</li>
         <li>Evitar cuellos de botella y saturación del bus.</li>
         <li>Garantizar compatibilidad entre hardware y software.</li>
         <li>Diagnosticar fallos de rendimiento o comunicación.</li>
       </ul>
       <div class="callout">
-        Ejemplo: una aplicación de captura de datos que ignora el ancho de banda del bus PCIe puede perder muestras
+        Ejemplo: una aplicación de captura de datos que ignora el ancho de banda del bus PCIe (Interconexión de Componentes Periféricos Express, Peripheral Component Interconnect Express) puede perder muestras
         o saturar la CPU; conocer el hardware permite diseñar buffers circulares y usar DMA.
       </div>
     </section>
